@@ -2,6 +2,7 @@ package command;
 
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 public class SortCommand extends AbstractCommand{
@@ -12,6 +13,8 @@ public class SortCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         getFileCollectionManager().sort();
         getIO().writeln(TerminalColors.setColor("Collection was sorted by ID", TerminalColors.BLUE));
     }

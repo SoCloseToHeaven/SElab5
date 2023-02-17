@@ -7,21 +7,23 @@ import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 import java.io.*;
+import java.util.HashSet;
 
 public class ExecuteScriptCommand extends AbstractCommand {
 
-    private static boolean inProgress = false;
+    private HashSet<File> openedFiles = new HashSet<>();
     public ExecuteScriptCommand(BasicClientIO io, FileCollectionManager fcm, BasicCommandManager bcm) {
         super("execute_script", io, fcm, bcm);
     }
 
     @Override
     public void execute(String[] args) {
-        if (args.length < 2)
-            throw new InvalidCommandArgumentException();
-        if (inProgress)
-            throw new UnsupportedOperationException("{execute_script} is unable while executing script to avoid recursion");
-        LocalScriptManager lsm = new LocalScriptManager(new File(args[1]));
+        if (args.length != 2)
+            throw new InvalidCommandArgumentException(this.getName());
+        File file = new File(args[1]);
+        if (openedFiles.contains(file))
+            throw new UnsupportedOperationException("{execute_script} is unable in opened file to avoid recursion");
+        LocalScriptManager lsm = new LocalScriptManager(file);
 
 
     }

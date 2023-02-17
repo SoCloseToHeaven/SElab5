@@ -2,6 +2,7 @@ package command;
 
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 public class SaveCommand extends AbstractCommand{
@@ -12,6 +13,8 @@ public class SaveCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         if (this.getFileCollectionManager().save())
             this.getIO().writeln(TerminalColors.setColor("Collection was successfully saved", TerminalColors.BLUE));
         else

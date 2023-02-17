@@ -14,8 +14,8 @@ public class CountLessThanAgeCommand extends AbstractCommand {
 
     @Override
     public void execute(String[] args) {
-        if (args.length < 2 || !args[1].matches("[1-9]\\d*"))
-            throw new InvalidCommandArgumentException();
+        if (args.length != 2 || !args[1].matches("[1-9]\\d*"))
+            throw new InvalidCommandArgumentException(this.getName());
         long age = Long.parseLong(args[1]);
         long counter = 0;
         for (Dragon dragon : getFileCollectionManager ().getCollection()) {

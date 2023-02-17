@@ -14,7 +14,7 @@ public class RemoveAtCommand extends AbstractCommand{
     @Override
     public void execute(String[] args) {
         if (args.length < 2 || !args[1].matches("\\d+"))
-            throw new InvalidCommandArgumentException("Invalid index value");
+            throw new InvalidCommandArgumentException(this.getName());
         int parsedIndex = Integer.parseInt(args[1]);
         if (getFileCollectionManager().remove(parsedIndex))
             getIO().writeln(TerminalColors.setColor("Successfully removed element with index: %d".formatted(parsedIndex), TerminalColors.BLUE));

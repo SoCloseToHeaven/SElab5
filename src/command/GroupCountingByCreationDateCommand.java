@@ -3,6 +3,7 @@ package command;
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
 import common.Dragon;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class GroupCountingByCreationDateCommand extends AbstractCommand {
 
     @Override
     public void execute(String[] args) {
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         HashMap<Date, Integer> groups = new HashMap<>();
         ArrayList<Dragon> collection = getFileCollectionManager().getCollection();
         for (Dragon dragon : collection) {

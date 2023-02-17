@@ -15,8 +15,8 @@ public class UpdateCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
-        if (args.length < 2 || !args[1].matches("[1-9]\\d*"))
-            throw new InvalidCommandArgumentException("Invalid ID");
+        if (args.length != 2 || !args[1].matches("[1-9]\\d*"))
+            throw new InvalidCommandArgumentException(this.getName());
         long id = Long.parseLong(args[1]);
         BasicClientIO io = getIO();
         String name = io.readLineWithNull("Type element's name: "); // name

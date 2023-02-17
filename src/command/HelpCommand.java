@@ -3,6 +3,7 @@ package command;
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
 import commandmanagers.BasicCommandManager;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 public class HelpCommand extends AbstractCommand{
@@ -13,6 +14,8 @@ public class HelpCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         getBasicCommandManager().getCommands().forEach((name, command) -> getIO().writeln(command.getUsage()));
     }
 

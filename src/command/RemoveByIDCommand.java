@@ -13,8 +13,8 @@ public class RemoveByIDCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
-        if (args.length < 2 || !args[1].matches("[1-9]\\d*"))
-            throw new InvalidCommandArgumentException("Invalid ID value");
+        if (args.length != 2 || !args[1].matches("[1-9]\\d*"))
+            throw new InvalidCommandArgumentException(this.getName());
         long parsedID = Long.parseLong(args[1]);
         if (getFileCollectionManager().removeIf(parsedID))
             getIO().writeln(

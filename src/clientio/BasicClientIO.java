@@ -3,10 +3,11 @@ package clientio;
 import util.LRUCache;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class BasicClientIO {
 
-    private final LRUCache<BufferedReader> cache = new LRUCache<>(1);
+    private final LinkedList<BufferedReader> stack = new LinkedList<>();
     private final BufferedWriter writer;
 
     public BasicClientIO() {
@@ -14,7 +15,7 @@ public class BasicClientIO {
     }
 
     public BasicClientIO(InputStream in, OutputStream out) {
-        this.cache.add(new BufferedReader(new InputStreamReader(in)));
+        this.stack.add(new BufferedReader(new InputStreamReader(in)));
         this.writer = new BufferedWriter(new OutputStreamWriter(out));
     }
 
@@ -43,7 +44,7 @@ public class BasicClientIO {
     }
 
     private BufferedReader getReader() {
-        return cache.getArray().get(0);
+        return stack.get(0);
     }
 
     public String readLine() {
@@ -58,19 +59,18 @@ public class BasicClientIO {
     public String read() {
         try {
             String input;
-            BufferedReader reader = getReader();
+            BufferedReader reader = stack.getLast();
             do {
                 input = reader.readLine();
                 if (input == null) {
                     //stream ended
                     //move to next stream
-                    reader.close();
-                    cache.clear();
+                    removeAndClose();
                     continue;
                 }
                 break;
-            } while (cache.size() > 0);
-            if (cache.size() == 0)
+            } while (stack.size() > 0);
+            if (stack.size() == 0)
                 System.exit(-1);
             return input;
         } catch (IOException e) {
@@ -100,5 +100,18 @@ public class BasicClientIO {
     public String readLineWithNull(String message) {
         this.write(message);
         return this.readLineWithNull();
+    }
+
+    public void add(BufferedReader reader) {
+        stack.add(reader);
+    }
+
+    public void removeAndClose() {
+        try {
+            stack.getLast().close();
+            stack.removeLast();
+        } catch (IOException e) {
+
+        }
     }
 }

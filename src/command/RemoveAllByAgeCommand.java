@@ -15,8 +15,8 @@ public class RemoveAllByAgeCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) { // age can be null, refactor later
-        if (args.length > 1 && !args[1].matches("[1-9]\\d*"))
-            throw new InvalidCommandArgumentException("Invalid Age value");
+        if (args.length == 2 && !args[1].matches("[1-9]\\d*"))
+            throw new InvalidCommandArgumentException(this.getName());
         Long parsedAge = (args.length <= 1) ? null : Long.parseLong(args[1]);
         if (getFileCollectionManager().getCollection().removeIf(element -> Objects.equals(element.getAge(), parsedAge)))
             getIO().writeln(TerminalColors.setColor(

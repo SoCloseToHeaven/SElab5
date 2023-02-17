@@ -6,6 +6,7 @@ import common.Coordinates;
 import common.Dragon;
 import common.DragonCave;
 import common.DragonType;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 public class AddCommand extends AbstractCommand {
@@ -15,7 +16,9 @@ public class AddCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(String[] args) { //needs refactoring
+    public void execute(String[] args) {
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         BasicClientIO io = getIO();
         String name = io.readLineWithNull("Type element's name: "); // name
         Integer x = Integer.parseInt(io.readLineWithNull("Type coordinate X: "));// CoordinateX

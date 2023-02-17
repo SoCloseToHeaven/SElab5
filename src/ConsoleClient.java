@@ -28,7 +28,7 @@ public class ConsoleClient {
 
     public void run() {
         addBasicCommands(this.io, this.cm, this.fcm);
-        io.writeln(TerminalColors.setColor("Type the name of environment variable: ", TerminalColors.GREEN));
+        io.writeln(TerminalColors.setColor("Type the name of environment variable(selabjson): ", TerminalColors.GREEN));
         try {
             String filePath = System.getenv(io.readLine(INPUT_PREFIX));
             this.fcm = new FileCollectionManager(filePath);

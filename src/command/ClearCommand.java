@@ -2,6 +2,7 @@ package command;
 
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
+import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
 public class ClearCommand extends AbstractCommand{
@@ -12,9 +13,10 @@ public class ClearCommand extends AbstractCommand{
 
     @Override
     public void execute(String[] args) {
-
+        if (args.length != 1)
+            throw new InvalidCommandArgumentException(this.getName());
         this.getFileCollectionManager().clear();
-        getIO().writeln(TerminalColors.setColor("Collection was successfully cleared",TerminalColors.BLUE));
+        getIO().writeln(TerminalColors.setColor("Collection was successfully cleared    ",TerminalColors.BLUE));
     }
 
     @Override
