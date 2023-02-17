@@ -2,7 +2,12 @@ package command;
 
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
+import common.Dragon;
 import util.TerminalColors;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 public class GroupCountingByCreationDateCommand extends AbstractCommand {
 
@@ -13,7 +18,15 @@ public class GroupCountingByCreationDateCommand extends AbstractCommand {
 
     @Override
     public void execute(String[] args) {
-
+        HashMap<Date, Integer> groups = new HashMap<>();
+        ArrayList<Dragon> collection = getFileCollectionManager().getCollection();
+        for (Dragon dragon : collection) {
+            Date date = dragon.getCreationDate();
+            if (!groups.containsKey(date))
+                groups.put(date, 0);
+            groups.replace(date, groups.get(date) + 1);
+        }
+        getIO().writeln(TerminalColors.setColor(groups.toString(), TerminalColors.BLUE));
     }
 
     @Override

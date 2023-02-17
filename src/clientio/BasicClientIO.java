@@ -96,4 +96,9 @@ public class BasicClientIO {
             return "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
         }
     }
+
+    public String readLineWithNull(String message) {
+        this.write(message);
+        return this.readLineWithNull();
+    }
 }

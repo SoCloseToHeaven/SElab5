@@ -1,14 +1,12 @@
 package collectionmanagers;
 
-import common.Dragon;
-import exceptions.InvalidFieldValueException;
 
 import java.util.ArrayList;
 
-public interface CollectionManager {
+public interface CollectionManager<T> {
 
-    ArrayList<Dragon> getCollection();
-    boolean add() throws InvalidFieldValueException;
+    ArrayList<T> getCollection();
+    void add(T t);
     boolean remove(int index);
     void clear();
     void open();

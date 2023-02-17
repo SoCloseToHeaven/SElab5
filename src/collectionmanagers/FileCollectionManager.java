@@ -3,14 +3,13 @@ package collectionmanagers;
 
 
 import common.Dragon;
-import exceptions.InvalidFieldValueException;
 import util.JSONFileManager;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FileCollectionManager implements SaveableCollectionManager{
+public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
 
     private ArrayList<Dragon> collection = new ArrayList<>();
 
@@ -24,8 +23,8 @@ public class FileCollectionManager implements SaveableCollectionManager{
     }
 
     @Override
-    public boolean add() throws InvalidFieldValueException {
-        return true;
+    public void add(Dragon dragon) {
+        collection.add(dragon);
     }
 
     @Override

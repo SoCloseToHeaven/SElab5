@@ -26,7 +26,7 @@ public class RemoveAtCommand extends AbstractCommand{
     @Override
     public String getUsage() {
         return "%s%s".formatted(
-                TerminalColors.setColor("remove {index}", TerminalColors.GREEN),
+                TerminalColors.setColor("remove_at {index}", TerminalColors.GREEN),
                 TerminalColors.setColor(" - removes element with the same index from collection",
                         TerminalColors.BLUE));
     }

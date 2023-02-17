@@ -39,9 +39,9 @@ public class JSONFileManager {
                 Dragon.VALIDATOR.validate(dragon);
             } catch (InvalidFieldValueException e) {
                 System.err.printf("Object: %s - can't be added due to invalid field values%n", dragon.toString());
-                return false;
+                return true;
             }
-            return true;
+            return false;
         });
         return dragons; // refactor
     }

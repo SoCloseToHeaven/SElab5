@@ -32,6 +32,6 @@ public class CountLessThanAgeCommand extends AbstractCommand {
         return "%s%s".formatted(
                 TerminalColors.setColor("count_less_than_age {age}", TerminalColors.GREEN),
                 TerminalColors.setColor(" - counts elements of collection which age is lower than {age}",
-                        TerminalColors.BLUE)); // rewrite later
+                        TerminalColors.BLUE));
     }
 }
