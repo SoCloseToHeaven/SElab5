@@ -13,17 +13,17 @@ public class Dragon {
 
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
 
-    private final String name; //Поле не может быть null, Строка не может быть пустой
+    private String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
     private final Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
-    private final Long age; //Значение поля должно быть больше 0, Поле может быть null
+    private Long age; //Значение поля должно быть больше 0, Поле может быть null
 
-    private final String description; //Поле не может быть null
+    private String description; //Поле не может быть null
 
-    private final Integer wingspan; //Значение поля должно быть больше 0, Поле не может быть null
+    private Integer wingspan; //Значение поля должно быть больше 0, Поле не может быть null
 
-    private final DragonType type; //Поле не может быть null
+    private DragonType type; //Поле не может быть null
 
     private final DragonCave cave; //Поле не может быть null
 
@@ -50,24 +50,78 @@ public class Dragon {
 
     public String getName() {return this.name;}
 
+    public Dragon setName(String name) {
+        this.name = name;
+        return this;
+    }
     public Coordinates getCoordinates(){
         return this.coordinates;
     }
 
+    public Dragon setCoordinates(Integer x, double y) {
+        coordinates.setCoordinates(x,y);
+        return this;
+    }
     public Date getCreationDate() {
         return creationDate;
     }
 
+
     public Long getAge() {return this.age;}
+
+    public Dragon setAge(Long age) {
+        VALIDATOR.validateAge(age);
+        this.age = age;
+        return this;
+    }
 
     public String getDescription() {return this.description;}
 
+    public Dragon setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
     public Integer getWingspan() {return this.wingspan;}
+
+    public Dragon setWingspan(Integer wingspan) {
+        VALIDATOR.validateWingspan(wingspan);
+        this.wingspan = wingspan;
+        return this;
+    }
 
     public DragonType getType() {return this.type;}
 
+    public Dragon setType(DragonType type) {
+        this.type = type;
+        return this;
+    }
+
+    public void update(String name,
+                       Integer x,
+                       double y,
+                       Long age,
+                       String desc,
+                       Integer wingspan,
+                       DragonType type,
+                       long depth,
+                       int numberOfTreasures) {
+        this.
+                setName(name).
+                setCoordinates(x,y).
+                setAge(age).
+                setDescription(desc).
+                setWingspan(wingspan).
+                setType(type).
+                setCave(depth, numberOfTreasures);
+    }
+
     public DragonCave getCave() {return this.cave;}
 
+    public Dragon setCave(long depth, int numberOfTreasures) {
+        this.cave.setCave(depth, numberOfTreasures);
+        return this;
+    }
     @Override
     public String toString() {
         return "Name: %s; ID: %d; CreationDate: %s; Age: %d; Description: %s; Wingspan: %d; Type: %s; Cave: %s; Coordinates: %s".

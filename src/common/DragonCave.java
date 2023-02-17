@@ -6,14 +6,20 @@ public class DragonCave {
 
     public static final Validator VALIDATOR = new Validator();
 
-    private final long depth;
+    private long depth;
 
-    private final int numberOfTreasures; //Значение поля должно быть больше 0
+    private int numberOfTreasures; //Значение поля должно быть больше 0
 
     public DragonCave(long startDepth, int startNumberOfTreasures) {
         this.depth = startDepth;
         this.numberOfTreasures = startNumberOfTreasures;
         VALIDATOR.validate(this);
+    }
+
+    public void setCave(long depth, int numberOfTreasures) {
+        VALIDATOR.validateNumberOfTreasures(numberOfTreasures);
+        this.depth = depth;
+        this.numberOfTreasures = numberOfTreasures;
     }
 
     @Override

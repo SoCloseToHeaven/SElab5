@@ -1,14 +1,13 @@
 package common;
 
-import com.google.gson.annotations.Expose;
 import exceptions.InvalidFieldValueException;
 
 public class Coordinates {
 
     public static final Validator VALIDATOR = new Validator();
-    @Expose
+
     private Integer x; //Поле не может быть null
-    @Expose
+
     private double y; //Максимальное значение поля: 36
 
     public Coordinates(Integer startX, double startY) {
@@ -17,12 +16,19 @@ public class Coordinates {
         VALIDATOR.validate(this);
     }
 
-/*    public Integer getX() {
+    public Integer getX() {
         return x;
     }
     public double getY() {
         return y;
-    }*/
+    }
+
+    public void setCoordinates(Integer x, double y) {
+        VALIDATOR.validateX(x);
+        VALIDATOR.validateY(y);
+        this.x = x;
+        this.y = y;
+    }
     @Override
     public String toString() {
         return "[%d, %f]".formatted(x,y);

@@ -8,6 +8,7 @@ import util.JSONFileManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
 
@@ -20,6 +21,14 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
     public FileCollectionManager(String filePath) throws FileNotFoundException{
         fileManager = new JSONFileManager(filePath);
         initDate = new Date();
+    }
+
+    public Dragon getByID(long id) {
+        for (Dragon dragon : collection) {
+            if (dragon.getID() == id)
+                return dragon;
+        }
+        throw new NoSuchElementException("No such ID found");
     }
 
     @Override
@@ -47,6 +56,7 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
     @Override
     public boolean remove(int index) {
         if (index >= 0 && index <= collection.size()) {
+            Dragon.VALIDATOR.removeUsedID(collection.get(index).getID());
             collection.remove(index);
             return true;
         }
@@ -55,7 +65,13 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
 
     @Override
     public boolean removeIf(long id) {
-        return collection.removeIf(element -> element.getID() == id);
+        return collection.removeIf(element -> {
+            if (element.getID() == id) {
+                Dragon.VALIDATOR.removeUsedID(id);
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override

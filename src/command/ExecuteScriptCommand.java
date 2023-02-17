@@ -40,7 +40,7 @@ public class ExecuteScriptCommand extends AbstractCommand {
         private final StringBuilder fileData = new StringBuilder();
         LocalScriptManager(File file) {
             if (!file.isAbsolute())
-                throw new InvalidCommandArgumentException();
+                throw new InvalidCommandArgumentException("Filepath is not absolute!");
             this.file = file;
         }
 
@@ -49,7 +49,7 @@ public class ExecuteScriptCommand extends AbstractCommand {
             try(BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
                 in.lines().forEach(this.fileData::append);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.printf("%s: %s%n", "Something went wrong while reading file", e.getMessage());
             }
         }
 
