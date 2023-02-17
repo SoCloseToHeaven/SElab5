@@ -17,7 +17,7 @@ public class RemoveAtCommand extends AbstractCommand{
             throw new InvalidCommandArgumentException("Invalid index value");
         int parsedIndex = Integer.parseInt(args[1]);
         if (getFileCollectionManager().remove(parsedIndex))
-            getIO().writeln(TerminalColors.setColor("Successfully removed element with index: %d".formatted(parsedIndex), TerminalColors.GREEN));
+            getIO().writeln(TerminalColors.setColor("Successfully removed element with index: %d".formatted(parsedIndex), TerminalColors.BLUE));
         else
             getIO().writeln(TerminalColors.setColor("Unsuccessfully removed element with index: %d".formatted(parsedIndex), TerminalColors.RED));
 

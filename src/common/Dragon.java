@@ -31,7 +31,7 @@ public class Dragon {
 
     public Dragon(String name, Coordinates coordinates, Long age, String description, Integer wingspan, DragonType type, DragonCave cave) {
         do {
-            this.id = new Random().nextLong(Long.MAX_VALUE) + ID_MIN_VALUE;
+            this.id = new Random().nextLong(Integer.MAX_VALUE) + ID_MIN_VALUE;
         } while (VALIDATOR.usedID.contains(this.id));
         this.name = name;
         this.coordinates = coordinates;
@@ -120,8 +120,8 @@ public class Dragon {
         }
 
         public void validateAge(Long age) throws InvalidFieldValueException {
-            if (age.intValue() <= 0)
-                throw new InvalidFieldValueException("Age can't be lower than zero!");
+            if (age == null) return;
+            if (age <= 0) throw new InvalidFieldValueException("Age can't be lower than zero!");
         }
 
         public void validateDescription(String description) throws InvalidFieldValueException {

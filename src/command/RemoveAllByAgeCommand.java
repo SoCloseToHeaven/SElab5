@@ -5,6 +5,8 @@ import collectionmanagers.FileCollectionManager;
 import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
+import java.util.Objects;
+
 public class RemoveAllByAgeCommand extends AbstractCommand{
 
     public RemoveAllByAgeCommand(BasicClientIO io, FileCollectionManager fcm) {
@@ -12,17 +14,17 @@ public class RemoveAllByAgeCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
-        if (args.length < 2 || !args[1].matches("[1-9]\\d*"))
+    public void execute(String[] args) { // age can be null, refactor later
+        if (args.length > 1 && !args[1].matches("[1-9]\\d*"))
             throw new InvalidCommandArgumentException("Invalid Age value");
-        long parsedAge = Long.parseLong(args[1]);
-        if (getFileCollectionManager().getCollection().removeIf(element -> element.getAge().equals(parsedAge)))
+        Long parsedAge = (args.length <= 1) ? null : Long.parseLong(args[1]);
+        if (getFileCollectionManager().getCollection().removeIf(element -> Objects.equals(element.getAge(), parsedAge)))
             getIO().writeln(TerminalColors.setColor(
-                    "%s - %d".formatted("Successfully removed elements with age", parsedAge),
+                    "%s - %s".formatted("Successfully removed elements with age", parsedAge),
                     TerminalColors.BLUE));
         else
             getIO().writeln(TerminalColors.setColor(
-                    "%s - %d".formatted("No elements found with age", parsedAge),
+                    "%s - %s".formatted("No elements found with age", parsedAge),
                     TerminalColors.RED));
     }
     @Override

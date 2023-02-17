@@ -12,7 +12,7 @@ public class ExitCommand extends AbstractCommand {
 
     @Override
     public void execute(String[] args) {
-        this.getIO().writeln(TerminalColors.setColor("Program stopped, thanks for using it :)", TerminalColors.GREEN));
+        this.getIO().writeln(TerminalColors.setColor("Program stopped, thanks for using it :)", TerminalColors.BLUE));
         System.exit(-1);
     }
 

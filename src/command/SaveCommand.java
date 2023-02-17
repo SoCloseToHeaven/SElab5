@@ -13,7 +13,7 @@ public class SaveCommand extends AbstractCommand{
     @Override
     public void execute(String[] args) {
         if (this.getFileCollectionManager().save())
-            this.getIO().writeln(TerminalColors.setColor("Collection was successfully saved", TerminalColors.GREEN));
+            this.getIO().writeln(TerminalColors.setColor("Collection was successfully saved", TerminalColors.BLUE));
         else
             this.getIO().writeln(TerminalColors.setColor("Collection wasn't saved, try again", TerminalColors.RED));
     }

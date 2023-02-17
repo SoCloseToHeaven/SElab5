@@ -21,7 +21,8 @@ public class AddCommand extends AbstractCommand {
         Integer x = Integer.parseInt(io.readLineWithNull("Type coordinate X: "));// CoordinateX
         double y = Double.parseDouble(io.readLine("Type coordinate Y: "));//CoordinateY
         Coordinates cords = new Coordinates(x,y);
-        Long age = Long.parseLong(io.readLineWithNull("Type age: "));//age can be null
+        String ageString = io.readLineWithNull("Type age: ");//age can be null
+        Long age = (ageString == null) ? null : Long.parseLong(ageString);
         String description = io.readLineWithNull("Type description: ");//description
         Integer wingspan = Integer.parseInt(io.readLineWithNull("Type wingspan: "));//wingspan
         long depth = Long.parseLong(io.readLine("Type cave's depth: "));//CaveDepth

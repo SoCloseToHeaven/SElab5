@@ -53,6 +53,7 @@ public class ConsoleClient {
                      InvalidFieldValueException |
                      InvalidCommandArgumentException |
                      NullPointerException |
+                     NumberFormatException |
                      UnsupportedOperationException e) {
                 io.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
             }

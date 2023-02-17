@@ -14,6 +14,7 @@ public class ClearCommand extends AbstractCommand{
     public void execute(String[] args) {
 
         this.getFileCollectionManager().clear();
+        getIO().writeln(TerminalColors.setColor("Collection was successfully cleared",TerminalColors.BLUE));
     }
 
     @Override

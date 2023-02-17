@@ -19,7 +19,7 @@ public class RemoveByIDCommand extends AbstractCommand{
         if (getFileCollectionManager().removeIf(parsedID))
             getIO().writeln(
                     TerminalColors.setColor("Successfully removed element with index: %d".formatted(parsedID),
-                            TerminalColors.GREEN));
+                            TerminalColors.BLUE));
         else
             getIO().writeln(
                     TerminalColors.setColor("Unsuccessfully removed element with index: %d".formatted(parsedID),

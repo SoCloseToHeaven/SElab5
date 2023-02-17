@@ -13,7 +13,7 @@ public class SortCommand extends AbstractCommand{
     @Override
     public void execute(String[] args) {
         getFileCollectionManager().sort();
-        getIO().writeln(TerminalColors.setColor("Collection was sorted by ID", TerminalColors.GREEN));
+        getIO().writeln(TerminalColors.setColor("Collection was sorted by ID", TerminalColors.BLUE));
     }
 
     @Override

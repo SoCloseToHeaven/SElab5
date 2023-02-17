@@ -19,11 +19,11 @@ public class CountLessThanAgeCommand extends AbstractCommand {
         long age = Long.parseLong(args[1]);
         long counter = 0;
         for (Dragon dragon : getFileCollectionManager ().getCollection()) {
-            if (dragon.getAge() <= age)
+            if (dragon.getAge() == null || dragon.getAge() <= age)
                 counter++;
         }
         getIO().writeln(TerminalColors.setColor(
-                        "%d %s %d".formatted(counter, "elements found lower than", age),
+                        "%d %s %s".formatted(counter, "elements found lower than", age),
                         TerminalColors.BLUE));
     }
 
@@ -31,7 +31,7 @@ public class CountLessThanAgeCommand extends AbstractCommand {
     public String getUsage() {
         return "%s%s".formatted(
                 TerminalColors.setColor("count_less_than_age {age}", TerminalColors.GREEN),
-                TerminalColors.setColor(" - counts elements of collection which age is lower than {age}",
+                TerminalColors.setColor(" - counts elements of collection which age is lower than {age}(can't be null)",
                         TerminalColors.BLUE));
     }
 }
