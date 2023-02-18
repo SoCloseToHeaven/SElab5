@@ -9,14 +9,14 @@ import common.DragonType;
 import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
-public class AddCommand extends AbstractCommand {
+public class AddCommand extends AbstractCommand{
 
     public AddCommand(BasicClientIO io, FileCollectionManager fcm) {
         super("add", io, fcm);
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args){
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         BasicClientIO io = getIO();
@@ -37,6 +37,7 @@ public class AddCommand extends AbstractCommand {
         getFileCollectionManager().add(dragon);
         io.writeln(TerminalColors.setColor("Element added successfully",TerminalColors.BLUE));
     }
+
 
     @Override
     public String getUsage() {

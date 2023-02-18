@@ -111,7 +111,7 @@ public class BasicClientIO {
             stack.getLast().close();
             stack.removeLast();
         } catch (IOException e) {
-
+            System.err.println("%s: %s".formatted("Something went wrong with userIO", e.getMessage()));
         }
     }
 }

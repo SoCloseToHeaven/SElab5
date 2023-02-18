@@ -3,6 +3,7 @@ import collectionmanagers.FileCollectionManager;
 import com.google.gson.JsonParseException;
 import commandmanagers.BasicCommandManager;
 import command.*;
+import exceptions.ExecutingScriptException;
 import exceptions.InvalidCommandArgumentException;
 import exceptions.InvalidFieldValueException;
 import exceptions.UnknownCommandException;
@@ -54,6 +55,7 @@ public class ConsoleClient {
                      InvalidCommandArgumentException |
                      NullPointerException |
                      NumberFormatException |
+                     ExecutingScriptException |
                      UnsupportedOperationException e) {
                 io.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
             }
