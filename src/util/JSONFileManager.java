@@ -49,20 +49,21 @@ public class JSONFileManager {
     public ArrayList<Dragon> readFromFile(){
         try(BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             in.lines().forEach(this.fileData::append);
+            ArrayList<Dragon> dragons = parser.parse(this.fileData.toString());
+            dragons.removeIf(dragon -> {
+                try {
+                    Dragon.VALIDATOR.validate(dragon);
+                } catch (InvalidFieldValueException  e) {
+                    System.err.printf("Object: %s - can't be added due to invalid field values%n", dragon.toString());
+                    return true;
+                }
+                return false;
+            });
+            return dragons;
         } catch (IOException e) {
             System.err.printf("%s: %s%n", "Something went wrong with userIO", e.getMessage());
         }
-        ArrayList<Dragon> dragons = parser.parse(this.fileData.toString());
-        dragons.removeIf(dragon -> {
-            try {
-                Dragon.VALIDATOR.validate(dragon);
-            } catch (InvalidFieldValueException e) {
-                System.err.printf("Object: %s - can't be added due to invalid field values%n", dragon.toString());
-                return true;
-            }
-            return false;
-        });
-        return dragons; // refactor
+        return new ArrayList<>();
     }
 
     /**

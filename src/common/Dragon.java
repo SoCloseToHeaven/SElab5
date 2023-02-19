@@ -158,16 +158,18 @@ public class Dragon {
     }
     @Override
     public String toString() {
-        return "Name: %s; ID: %d; CreationDate: %s; Age: %d; Description: %s; Wingspan: %d; Type: %s; Cave: %s; Coordinates: %s".
+
+        return "Name: %s; ID: %s; CreationDate: %s; Age: %s; Description: %s; Wingspan: %s; Type: %s; Cave: %s; Coordinates: %s".
                 formatted(
-                        getName(),
-                        getID(),
-                        getCreationDate().toString(),
-                        getAge(), getDescription(),
-                        getWingspan(),
-                        getType().toString(),
-                        getCave().toString(),
-                        getCoordinates().toString());
+                        String.valueOf(getName()),
+                        String.valueOf(getID()),
+                        String.valueOf(getCreationDate()),
+                        String.valueOf(getAge()),
+                        String.valueOf(getDescription()),
+                        String.valueOf(getWingspan()),
+                        String.valueOf(getType()),
+                        String.valueOf(getCave()),
+                        String.valueOf(getCoordinates()));
     }
 
     public static class Validator implements AbstractValidator<Dragon> {
@@ -196,9 +198,9 @@ public class Dragon {
          * @throws InvalidFieldValueException if value is invalid
          */
         public void validateID(Long id) throws InvalidFieldValueException{
+            AbstractValidator.checkIfNull(id, "ID can't be null!");
             if (id.intValue() <= 0 || usedID.contains(id))
                 throw new InvalidFieldValueException("Invalid ID value!");
-            AbstractValidator.checkIfNull(id, "ID can't be null!");
             usedID.add(id);
         }
 
@@ -208,9 +210,9 @@ public class Dragon {
          * @throws InvalidFieldValueException if value is invalid
          */
         public void validateName(String name) throws InvalidFieldValueException{
+            AbstractValidator.checkIfNull(name, "Name can't be null!");
             if (name.isEmpty())
                 throw new InvalidFieldValueException("Field name can't be empty!");
-            AbstractValidator.checkIfNull(name, "Name can't be null!");
         }
 
         /**
@@ -257,9 +259,9 @@ public class Dragon {
          * @throws InvalidFieldValueException if value is invalid
          */
         public void validateWingspan(Integer wingspan) throws InvalidFieldValueException {
+            AbstractValidator.checkIfNull(wingspan, "Wingspan can't be null!");
             if (wingspan <= 0)
                 throw new InvalidFieldValueException("Wingspan value can't be lower than zero!");
-            AbstractValidator.checkIfNull(wingspan, "Wingspan can't be null!");
         }
 
         /**

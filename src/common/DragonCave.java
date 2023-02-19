@@ -38,7 +38,7 @@ public class DragonCave {
 
     @Override
     public String toString() {
-        return "[%d, %d]".formatted(depth, numberOfTreasures);
+        return "[%s, %s]".formatted(depth, numberOfTreasures);
     }
 
     public static class Validator implements AbstractValidator<DragonCave> {

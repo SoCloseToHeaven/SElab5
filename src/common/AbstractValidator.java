@@ -22,4 +22,5 @@ public interface AbstractValidator<T> {
         if (field == null)
             throw new InvalidFieldValueException(fieldName);
     }
+
 }

@@ -10,6 +10,7 @@ import exceptions.UnknownCommandException;
 import util.TerminalColors;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -49,9 +50,9 @@ public class ConsoleClient {
             String filePath = System.getenv(io.readLine(INPUT_PREFIX));
             this.fcm = new FileCollectionManager(filePath);
             fcm.open();
-        } catch (FileNotFoundException
-                 | NullPointerException
-                 | JsonParseException e) {
+        } catch (IOException |
+                JsonParseException |
+                NullPointerException e) {
             io.write(TerminalColors.setColor("%s - exiting program".formatted(e.getMessage()), TerminalColors.RED));
             System.exit(-1);
         }

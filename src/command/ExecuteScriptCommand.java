@@ -12,6 +12,7 @@ import util.TerminalColors;
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 
 public class ExecuteScriptCommand extends AbstractCommand {
     /**
@@ -79,8 +80,9 @@ public class ExecuteScriptCommand extends AbstractCommand {
 
         /**
          * reads data from file and adds it to {@link #fileData}
+         * @return true if successfully read data from file, false if else
          */
-        private void readFromFile() {
+        private boolean readFromFile() {
             try {
                 io.add(new BufferedReader(new InputStreamReader(new FileInputStream(file))){
                     @Override
@@ -90,8 +92,10 @@ public class ExecuteScriptCommand extends AbstractCommand {
                     }
                 });
                 fileData.append(io.read());
+                return true;
             } catch (IOException e) {
                 System.err.printf("%s: %s%n", "Something went wrong while reading file", e.getMessage());
+                return false;
             }
         }
 
@@ -99,7 +103,6 @@ public class ExecuteScriptCommand extends AbstractCommand {
          * @return array of commands and their arguments from file
          */
         private String[] getArgs() {
-            this.readFromFile();
             return this.fileData.toString().split("\n");
         }
 
@@ -107,8 +110,9 @@ public class ExecuteScriptCommand extends AbstractCommand {
          * runs local script manager, that executes commands
          */
         public void run() {
-            String[] args = getArgs();
+            if (!this.readFromFile()) return;
             OPENED_FILES.add(file);
+            String[] args = getArgs();
             Arrays.stream(args).forEach(arguments -> {
                 try {
                     bcm.manage(arguments);
@@ -117,6 +121,7 @@ public class ExecuteScriptCommand extends AbstractCommand {
                          InvalidCommandArgumentException |
                          NullPointerException |
                          NumberFormatException |
+                         NoSuchElementException |
                          UnsupportedOperationException e) {
                     io.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
                 }

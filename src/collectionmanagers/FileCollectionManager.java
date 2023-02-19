@@ -66,10 +66,10 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
     public void sort() { // sorting by ID
         this.collection.sort((o1, o2) -> {
             if (o1.getID() < o2.getID())
-                return 1;
+                return -1;
             else if (o1.getID().equals(o2.getID()))
                 return 0;
-            return -1;
+            return 1;
         });
     }
 

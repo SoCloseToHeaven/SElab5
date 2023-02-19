@@ -39,7 +39,7 @@ public class Coordinates {
     }
     @Override
     public String toString() {
-        return "[%d, %f]".formatted(x,y);
+        return "[%s, %f]".formatted(String.valueOf(x),y);
     }
 
 
