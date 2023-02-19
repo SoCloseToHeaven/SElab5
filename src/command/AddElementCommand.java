@@ -2,41 +2,45 @@ package command;
 
 import clientio.BasicClientIO;
 import collectionmanagers.FileCollectionManager;
+import common.Coordinates;
 import common.Dragon;
+import common.DragonCave;
 import common.DragonType;
 import exceptions.InvalidCommandArgumentException;
 import util.TerminalColors;
 
-public class UpdateCommand extends CollectionElementEditorCommand {
+public class AddElementCommand extends CollectionElementEditorCommand {
 
-    public UpdateCommand(BasicClientIO io, FileCollectionManager fcm) {
-        super("update", io, fcm);
+    public AddElementCommand(BasicClientIO io, FileCollectionManager fcm) {
+        super("add", io, fcm);
     }
 
     @Override
     public void execute(String[] args) throws InvalidCommandArgumentException { //rebuild later
-        if (args.length != 2 || !args[1].matches("[1-9]\\d*"))
+        if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
-        long id = Long.parseLong(args[1]);
         String name = inputName();
         Integer x = inputX();
         double y = inputY();
+        Coordinates cords = new Coordinates(x,y);
         Long age = inputAge();
         String description = inputDescription();
         Integer wingspan = inputWingspan();
         long depth = inputDepth();
         int numberOfTreasures = inputNumberOfTreasures();
+        DragonCave cave = new DragonCave(depth, numberOfTreasures);
         DragonType type = inputDragonType();
-        Dragon dragon = getFileCollectionManager().getByID(id);
-        dragon.update(name,x,y,age, description,wingspan,type,depth,numberOfTreasures);
-        getIO().writeln(TerminalColors.setColor("Element updated successfully",TerminalColors.BLUE));
+        Dragon dragon = new Dragon(name, cords, age, description, wingspan, type, cave);
+        getFileCollectionManager().add(dragon);
+        getIO().writeln(TerminalColors.setColor("Element added successfully",TerminalColors.BLUE));
     }
+
 
     @Override
     public String getUsage() {
         return "%s%s".formatted(
-                TerminalColors.setColor("update {ID} {element}", TerminalColors.GREEN),
-                TerminalColors.setColor(" - updates data(in the same way as in {add} command) with the same ID",
-                        TerminalColors.BLUE));
+                TerminalColors.setColor("add {element}", TerminalColors.GREEN),
+                TerminalColors.setColor(" - adds new collection element, fill the fields with values line by line",
+                TerminalColors.BLUE));
     }
 }

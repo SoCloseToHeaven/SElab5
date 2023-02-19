@@ -11,6 +11,7 @@ import util.TerminalColors;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * class used for interaction of user with console
@@ -65,6 +66,7 @@ public class ConsoleClient {
             try {
                 cm.manage(input);
             } catch (UnknownCommandException |
+                     NoSuchElementException |
                      InvalidFieldValueException |
                      InvalidCommandArgumentException |
                      NullPointerException |
@@ -84,7 +86,7 @@ public class ConsoleClient {
      */
     private void addBasicCommands(BasicClientIO io, BasicCommandManager bcm, FileCollectionManager fcm) {
         Arrays.asList(
-                new AddCommand(io, fcm),
+                new AddElementCommand(io, fcm),
                 new ClearCommand(io, fcm),
                 new CountLessThanAgeCommand(io, fcm),
                 new ExecuteScriptCommand(io, fcm, bcm),

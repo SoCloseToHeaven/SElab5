@@ -24,7 +24,7 @@ public abstract class AbstractCommand {
      * @param io input-output handler
      * @param fcm to provide working with collection
      */
-    protected AbstractCommand(String name, BasicClientIO io, FileCollectionManager fcm) {
+    public AbstractCommand(String name, BasicClientIO io, FileCollectionManager fcm) {
         this.name = name;
         this.io = io;
         this.fcm = fcm;
@@ -38,7 +38,7 @@ public abstract class AbstractCommand {
      * @param bcm to execute commands
      */
 
-    protected AbstractCommand(String name, BasicClientIO io, FileCollectionManager fcm, BasicCommandManager bcm) {
+    public AbstractCommand(String name, BasicClientIO io, FileCollectionManager fcm, BasicCommandManager bcm) {
         this.name = name;
         this.io = io;
         this.fcm = fcm;
