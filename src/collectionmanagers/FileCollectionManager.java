@@ -10,12 +10,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
+/**
+ * This class is used to organise working with collection, that could be saved in file or loaded from it
+ */
 public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
+
+    /**
+     * collection of {@link common.Dragon}
+     */
 
     private ArrayList<Dragon> collection = new ArrayList<>();
 
+    /**
+     * file manager, that is used for saving collection in file, please check {@link util.JSONFileManager}
+     */
+
     private final JSONFileManager fileManager;
 
+    /**
+     * initialization date
+     */
     private final Date initDate;
 
     public FileCollectionManager(String filePath) throws FileNotFoundException{
@@ -23,6 +37,12 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
         initDate = new Date();
     }
 
+
+    /**
+     * @param id id of {@link common.Dragon}
+     * @return element with given ID
+     * @throws NoSuchElementException if there is no element with given ID
+     */
     public Dragon getByID(long id) {
         for (Dragon dragon : collection) {
             if (dragon.getID() == id)

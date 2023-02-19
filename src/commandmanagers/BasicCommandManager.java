@@ -9,10 +9,25 @@ import util.LRUCache;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * basic command invoker
+ */
 public class BasicCommandManager implements CommandManager{
+
+    /**
+     * All usable commands, please see {@link command.AbstractCommand}
+     */
     private final HashMap<String, AbstractCommand> commands = new HashMap<>();
 
+    /**
+     * maximum history of used commands size
+     */
+
     private static final int MAX_HISTORY_SIZE = 13;
+
+    /**
+     * used commands history, please see {@link util.LRUCache} and {@link command.AbstractCommand\}
+     */
     private final LRUCache<AbstractCommand> commandHistory = new LRUCache<>(MAX_HISTORY_SIZE) {
         @Override
         public String toString() {

@@ -16,7 +16,7 @@ public class AddCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args){
+    public void execute(String[] args) throws InvalidCommandArgumentException { //rebuild later
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         BasicClientIO io = getIO();

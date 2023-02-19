@@ -13,7 +13,7 @@ public class HelpCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         getBasicCommandManager().getCommands().forEach((name, command) -> getIO().writeln(command.getUsage()));

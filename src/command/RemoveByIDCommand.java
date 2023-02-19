@@ -12,7 +12,7 @@ public class RemoveByIDCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 2 || !args[1].matches("[1-9]\\d*"))
             throw new InvalidCommandArgumentException(this.getName());
         long parsedID = Long.parseLong(args[1]);

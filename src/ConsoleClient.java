@@ -12,24 +12,38 @@ import util.TerminalColors;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
+/**
+ * class used for interaction of user with console
+ */
 public class ConsoleClient {
 
     private final BasicClientIO io;
 
     private final BasicCommandManager cm;
 
+    /**
+     * Prefix used before user's input
+     */
     private static final String INPUT_PREFIX = TerminalColors.setColor("> ", TerminalColors.CYAN);
 
 
     private FileCollectionManager fcm;
+
+    /**
+     * @param io input-output utility, please see {@link clientio.BasicClientIO}
+     * @param cm command manager, please see {@link commandmanagers.BasicCommandManager}
+     */
     public ConsoleClient(BasicClientIO io, BasicCommandManager cm){
         this.io = io;
         this.cm = cm;
     }
 
+    /**
+     * runs ConsoleClient
+     */
     public void run() {
         addBasicCommands(this.io, this.cm, this.fcm);
-        io.writeln(TerminalColors.setColor("Type the name of environment variable(selabjson): ", TerminalColors.GREEN));
+        io.writeln(TerminalColors.setColor("Type the name of environment variable: ", TerminalColors.GREEN));
         try {
             String filePath = System.getenv(io.readLine(INPUT_PREFIX));
             this.fcm = new FileCollectionManager(filePath);
@@ -62,7 +76,12 @@ public class ConsoleClient {
         }
     }
 
-
+    /**
+     * adds basic commands to command manager
+     * @param io input-output utility, please see {@link clientio.BasicClientIO}
+     * @param bcm command manager, please see {@link commandmanagers.BasicCommandManager}
+     * @param fcm file collection manager, please see {@link collectionmanagers.FileCollectionManager}
+     */
     private void addBasicCommands(BasicClientIO io, BasicCommandManager bcm, FileCollectionManager fcm) {
         Arrays.asList(
                 new AddCommand(io, fcm),

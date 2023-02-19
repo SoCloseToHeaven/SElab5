@@ -12,7 +12,7 @@ public class InfoCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         getIO().writeln(TerminalColors.setColor(getFileCollectionManager().toString(),TerminalColors.BLUE));

@@ -1,8 +1,14 @@
 package exceptions;
 
+/**
+ * used when field value in class is incorrect
+ */
 public class InvalidFieldValueException extends RuntimeException {
 
-    public InvalidFieldValueException(String description) {
-        super(description);
+    /**
+     * @param message exception message
+     */
+    public InvalidFieldValueException(String message) {
+        super(message);
     }
 }

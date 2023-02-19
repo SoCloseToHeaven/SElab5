@@ -12,7 +12,7 @@ public class SaveCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         if (this.getFileCollectionManager().save())

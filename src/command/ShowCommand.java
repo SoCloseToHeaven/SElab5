@@ -15,7 +15,7 @@ public class ShowCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         ArrayList<Dragon> collection = getFileCollectionManager().getCollection();

@@ -18,7 +18,7 @@ public class GroupCountingByCreationDateCommand extends AbstractCommand {
 
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         HashMap<Date, Integer> groups = new HashMap<>();

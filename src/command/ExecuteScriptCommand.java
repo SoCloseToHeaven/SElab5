@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class ExecuteScriptCommand extends AbstractCommand {
+    /**
+     * Opened files set to avoid recursion
+     */
 
     private static final HashSet<File> OPENED_FILES = new HashSet<>();
 
@@ -21,8 +24,14 @@ public class ExecuteScriptCommand extends AbstractCommand {
         super("execute_script", io, fcm, bcm);
     }
 
+    /**
+     *
+     * @param args to use in command
+     * @throws InvalidCommandArgumentException if arguments are invalid
+     * @throws ExecutingScriptException if file is already opened
+     */
     @Override
-    public void execute(String[] args){
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 2)
             throw new InvalidCommandArgumentException(this.getName());
         File file = new File(args[1]);
@@ -35,26 +44,42 @@ public class ExecuteScriptCommand extends AbstractCommand {
     public String getUsage() {
         return "%s%s".formatted(
                 TerminalColors.setColor("execute_script {filepath}", TerminalColors.GREEN),
-                TerminalColors.setColor(" - runs script from your file, {filepath} have to be absolute",
+                TerminalColors.setColor(" - runs script from your file.",
                         TerminalColors.BLUE));
     }
 
+    /**
+     * private inner class to provide more proper work with executing other commands
+     */
     private class LocalScriptManager {
 
         private final File file;
 
+        /**
+         * please check {@link commandmanagers.BasicCommandManager}
+         */
+
         private final BasicCommandManager bcm = getBasicCommandManager();
+        /**
+         * please check {@link clientio.BasicClientIO}
+         */
 
         private final BasicClientIO io = getIO();
-
+        /**
+         * data from file
+         */
         private final StringBuilder fileData = new StringBuilder();
+
+        /**
+         * @param file to read from
+         */
         LocalScriptManager(File file) {
-            if (!file.isAbsolute())
-                throw new InvalidCommandArgumentException("Filepath is not absolute!");
             this.file = file;
         }
 
-
+        /**
+         * reads data from file and adds it to {@link #fileData}
+         */
         private void readFromFile() {
             try {
                 io.add(new BufferedReader(new InputStreamReader(new FileInputStream(file))){
@@ -70,14 +95,20 @@ public class ExecuteScriptCommand extends AbstractCommand {
             }
         }
 
+        /**
+         * @return array of commands and their arguments from file
+         */
         private String[] getArgs() {
             this.readFromFile();
             return this.fileData.toString().split("\n");
         }
 
+        /**
+         * runs local script manager, that executes commands
+         */
         public void run() {
-            OPENED_FILES.add(file);
             String[] args = getArgs();
+            OPENED_FILES.add(file);
             Arrays.stream(args).forEach(arguments -> {
                 try {
                     bcm.manage(arguments);

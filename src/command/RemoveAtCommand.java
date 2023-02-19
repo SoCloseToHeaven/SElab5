@@ -12,7 +12,7 @@ public class RemoveAtCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length < 2 || !args[1].matches("\\d+"))
             throw new InvalidCommandArgumentException(this.getName());
         int parsedIndex = Integer.parseInt(args[1]);

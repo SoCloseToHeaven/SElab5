@@ -14,7 +14,7 @@ public class RemoveAllByAgeCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(String[] args) { // age can be null, refactor later
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length == 2 && !args[1].matches("[1-9]\\d*"))
             throw new InvalidCommandArgumentException(this.getName());
         Long parsedAge = (args.length <= 1) ? null : Long.parseLong(args[1]);

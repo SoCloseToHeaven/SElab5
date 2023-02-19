@@ -4,11 +4,20 @@ import exceptions.InvalidFieldValueException;
 
 public class Coordinates {
 
+    /**
+     *  default validator for coordinates
+     */
     public static final Validator VALIDATOR = new Validator();
 
-    private Integer x; //Поле не может быть null
+    private Integer x;
 
-    private double y; //Максимальное значение поля: 36
+    private double y;
+
+    /**
+     * creates object and validate its fields via {@link #VALIDATOR#validate()}
+     * @param startX can't be null
+     * @param startY can't be greater than 36
+     */
 
     public Coordinates(Integer startX, double startY) {
         this.x = startX;
@@ -16,13 +25,12 @@ public class Coordinates {
         VALIDATOR.validate(this);
     }
 
-    public Integer getX() {
-        return x;
-    }
-    public double getY() {
-        return y;
-    }
 
+    /**
+     * sets new values for field {@link #x} and {@link #y} if they pass validation
+     * @param x value to validate
+     * @param y value to validate
+     */
     public void setCoordinates(Integer x, double y) {
         VALIDATOR.validateX(x);
         VALIDATOR.validateY(y);
@@ -38,15 +46,25 @@ public class Coordinates {
     public static class Validator implements AbstractValidator<Coordinates> {
 
         @Override
-        public void validate(Coordinates cords) throws InvalidFieldValueException {
+        public void validate(Coordinates cords) {
             validateX(cords.x);
             validateY(cords.y);
         }
 
+        /**
+         *
+         * @param x value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateX(Integer x) throws InvalidFieldValueException{
             AbstractValidator.checkIfNull(x, "Field X can't be null");
         }
 
+        /**
+         *
+         * @param y value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateY(double y) throws InvalidFieldValueException{
             if (y >= 36.0)
                 throw new InvalidFieldValueException("Field Y can't be greater than 36");

@@ -5,29 +5,62 @@ import exceptions.InvalidFieldValueException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
-
+/**
+ * Dragon is the entity that we'll be using in {@link collectionmanagers.FileCollectionManager}
+ *
+ */
 public class Dragon {
+    /**
+     * Default validator for dragon
+     */
 
     public static final Validator VALIDATOR = new Validator();
 
 
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    /**
+     * The ID of dragon, it can't be null, it's value have to be positive, unique and auto-generated
+     */
+    private Long id;
 
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private final Coordinates coordinates; //Поле не может быть null
-    private final Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private String name;
 
-    private Long age; //Значение поля должно быть больше 0, Поле может быть null
+    private final Coordinates coordinates;
 
-    private String description; //Поле не может быть null
+    /**
+     * The creation date of dragon, can't be null, generates automatically
+     */
+    private final Date creationDate;
 
-    private Integer wingspan; //Значение поля должно быть больше 0, Поле не может быть null
 
-    private DragonType type; //Поле не может быть null
+    private Long age;
 
-    private final DragonCave cave; //Поле не может быть null
+
+
+    private String description;
+
+    private Integer wingspan;
+
+    private DragonType type;
+
+
+    private final DragonCave cave;
+
+    /**
+     * Minimum value for ID
+     */
 
     private final static long ID_MIN_VALUE = 1L;
+
+    /**
+     * Creates dragon and validates its data via {@link } method
+     * @param name can't be null or empty
+     * @param coordinates can't be null, please see {@link common.Coordinates}
+     * @param age can be null and have to be greater than zero
+     * @param description can't be null
+     * @param wingspan can't be null and have to be greater than zero
+     * @param type can't be null,  please see {@link common.DragonType}
+     * @param cave can't be null, please see {@link common.DragonCave}
+     */
 
     public Dragon(String name, Coordinates coordinates, Long age, String description, Integer wingspan, DragonType type, DragonCave cave) {
         do {
@@ -51,6 +84,7 @@ public class Dragon {
     public String getName() {return this.name;}
 
     public Dragon setName(String name) {
+        VALIDATOR.validateName(name);
         this.name = name;
         return this;
     }
@@ -138,9 +172,13 @@ public class Dragon {
 
     public static class Validator implements AbstractValidator<Dragon> {
 
+        /**
+         * collection to cache usedIDs
+         */
+
         private HashSet<Long> usedID = new HashSet<>();
         @Override
-        public void validate(Dragon dragon) throws InvalidFieldValueException {
+        public void validate(Dragon dragon) {
             validateID(dragon.id);
             validateName(dragon.name);
             validateCoordinates(dragon.coordinates);
@@ -152,6 +190,11 @@ public class Dragon {
             validateDragonType(dragon.type);
         }
 
+        /**
+         * validates object's ID
+         * @param id value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateID(Long id) throws InvalidFieldValueException{
             if (id.intValue() <= 0 || usedID.contains(id))
                 throw new InvalidFieldValueException("Invalid ID value!");
@@ -159,46 +202,95 @@ public class Dragon {
             usedID.add(id);
         }
 
+        /**
+         * validates object's name
+         * @param name value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateName(String name) throws InvalidFieldValueException{
             if (name.isEmpty())
                 throw new InvalidFieldValueException("Field name can't be empty!");
             AbstractValidator.checkIfNull(name, "Name can't be null!");
         }
 
+        /**
+         * validates object's coordinates
+         * @param coordinates value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
+
         public void validateCoordinates(Coordinates coordinates) throws InvalidFieldValueException {
             AbstractValidator.checkIfNull(coordinates, "Coordinates can't be null!");
         }
 
+        /**
+         * validates object's creation date
+         * @param creationDate value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateCreationDate(Date creationDate) throws InvalidFieldValueException {
             AbstractValidator.checkIfNull(creationDate, "Creation date can't be null!");
         }
 
+        /**
+         * validates object's age
+         * @param age value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateAge(Long age) throws InvalidFieldValueException {
             if (age == null) return;
             if (age <= 0) throw new InvalidFieldValueException("Age can't be lower than zero!");
         }
 
+        /**
+         * validates object's description
+         * @param description value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateDescription(String description) throws InvalidFieldValueException {
             AbstractValidator.checkIfNull(description, "Description can't be null!");
         }
 
+        /**
+         * validates object's wingspan
+         * @param wingspan value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateWingspan(Integer wingspan) throws InvalidFieldValueException {
             if (wingspan <= 0)
                 throw new InvalidFieldValueException("Wingspan value can't be lower than zero!");
             AbstractValidator.checkIfNull(wingspan, "Wingspan can't be null!");
         }
 
+        /**
+         * validates object's type
+         * @param dragonType value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
         public void validateDragonType(DragonType dragonType) throws InvalidFieldValueException {
             AbstractValidator.checkIfNull(dragonType, "Dragon type can't be null!");
         }
+
+        /**
+         * validates object's cave
+         * @param dragonCave value to validate
+         * @throws InvalidFieldValueException if value is invalid
+         */
 
         public void validateDragonCave(DragonCave dragonCave) throws InvalidFieldValueException {
             AbstractValidator.checkIfNull(dragonCave, "Dragon cave can't be null!");
         }
 
+        /**
+         * clears collection of usedIDs
+         */
         public void clearUsedID() {
             usedID = new HashSet<>();
         }
+
+        /**
+         * @param id to remove from usedIDs collection
+         */
 
         public void removeUsedID(Long id) {
             usedID.remove(id);

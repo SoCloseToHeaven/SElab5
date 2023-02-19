@@ -12,7 +12,7 @@ public class ExitCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws InvalidCommandArgumentException {
         if (args.length != 1)
             throw new InvalidCommandArgumentException(this.getName());
         this.getIO().writeln(TerminalColors.setColor("Program stopped, thanks for using it :)", TerminalColors.BLUE));
