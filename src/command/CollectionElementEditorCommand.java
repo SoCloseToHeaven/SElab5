@@ -9,16 +9,27 @@ import common.DragonType;
 import exceptions.InvalidFieldValueException;
 import util.TerminalColors;
 
-
+/**
+ * abstract class for commands that add or update collection elements
+ */
 public abstract class CollectionElementEditorCommand extends AbstractCommand {
 
-    private final BasicClientIO localIO = getIO();
+    private final BasicClientIO localIO;
 
+    /**
+     * @param name of command
+     * @param io - input-output manager
+     * @param fcm - manager of collection
+     */
     public CollectionElementEditorCommand(String name, BasicClientIO io, FileCollectionManager fcm) {
         super(name, io, fcm);
+        this.localIO = io;
     }
 
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public String inputName() {
         try {
             String name = localIO.readLine("Type element's name: ");
@@ -30,6 +41,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
         }
     }
 
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public Integer inputX() {
         try {
             Integer x = Integer.parseInt(localIO.readLineWithNull("Type coordinate X: "));
@@ -40,7 +55,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputX();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public double inputY() {
         try {
             double y = Double.parseDouble(localIO.readLine("Type coordinate Y: "));
@@ -51,7 +69,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputY();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public Long inputAge() {
         try {
             String ageString = localIO.readLineWithNull("Type age: "); //age can be null
@@ -63,7 +84,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputAge();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public String inputDescription() {
         try {
             String description = localIO.readLineWithNull("Type description: ");//description
@@ -74,7 +98,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputDescription();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public Integer inputWingspan() {
         try {
             Integer wingspan = Integer.parseInt(localIO.readLineWithNull("Type wingspan: "));//wingspan
@@ -85,7 +112,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputWingspan();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public long inputDepth() {
         try {
             return Long.parseLong(localIO.readLine("Type cave's depth: "));
@@ -94,6 +124,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputDepth();
         }
     }
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public int inputNumberOfTreasures() {
         try {
             int numberOfTreasures = Integer.parseInt(localIO.read("Type number of treasures: "));//CaveNumberOfTreasures
@@ -104,7 +138,10 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
             return inputNumberOfTreasures();
         }
     }
-
+    /**
+     * validates inputted value and returns it
+     * @return inputted value
+     */
     public DragonType inputDragonType() {
         try {
             return DragonType.parseDragonType(localIO.readLine(
