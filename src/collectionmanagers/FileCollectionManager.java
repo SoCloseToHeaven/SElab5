@@ -75,7 +75,7 @@ public class FileCollectionManager implements SaveableCollectionManager<Dragon>{
 
     @Override
     public boolean remove(int index) {
-        if (index >= 0 && index <= collection.size()) {
+        if (index >= 0 && index < collection.size()) {
             Dragon.VALIDATOR.removeUsedID(collection.get(index).getID());
             collection.remove(index);
             return true;

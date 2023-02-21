@@ -32,7 +32,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public String inputName() {
         try {
-            String name = localIO.readLine("Type element's name: ");
+            String name = localIO.read("Type element's name: ");
             Dragon.VALIDATOR.validateName(name);
             return name;
         } catch (InvalidFieldValueException e) {
@@ -61,7 +61,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public double inputY() {
         try {
-            double y = Double.parseDouble(localIO.readLine("Type coordinate Y: "));
+            double y = Double.parseDouble(localIO.read("Type coordinate Y: "));
             Coordinates.VALIDATOR.validateY(y);
             return y;
         } catch (NumberFormatException|InvalidFieldValueException e) {
@@ -118,7 +118,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public long inputDepth() {
         try {
-            return Long.parseLong(localIO.readLine("Type cave's depth: "));
+            return Long.parseLong(localIO.read("Type cave's depth: "));
         } catch (NumberFormatException e) {
             localIO.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
             return inputDepth();
@@ -144,7 +144,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public DragonType inputDragonType() {
         try {
-            return DragonType.parseDragonType(localIO.readLine(
+            return DragonType.parseDragonType(localIO.read(
                     "%s(%s): ".formatted("Type dragon's type", DragonType.stringValues())));
         } catch (UnsupportedOperationException e) {
             localIO.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));

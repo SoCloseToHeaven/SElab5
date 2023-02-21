@@ -26,7 +26,7 @@ public enum TerminalColors {
      * @return colored line
      */
     public static String setColor(String line, TerminalColors color) {
-        return color.toString() + line + TerminalColors.RESET;
+        return "%s%s%s".formatted(color.toString(), line, TerminalColors.RESET);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package clientio;
 
+import util.TerminalColors;
+
 import java.io.*;
 import java.util.LinkedList;
 
@@ -68,29 +70,10 @@ public class BasicClientIO {
         }
     }
 
-    /**
-     *
-     * @return first element of {@link #stack}
-     */
-    private BufferedReader getReader() {
-        return stack.get(0);
-    }
 
     /**
      *
-     * @return String read from input stream
-     */
-    public String readLine() {
-        try {
-            return getReader().readLine();
-        } catch (IOException e) {
-            return "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
-        }
-    }
-
-    /**
-     *
-     * @return reads symbols from input stream until it ends
+     * @return read one line from input stream, if it ends stream will be closed via method {@link #removeAndClose()}
      */
     public String read() {
         try {
@@ -106,8 +89,10 @@ public class BasicClientIO {
                 }
                 break;
             } while (stack.size() > 0);
-            if (stack.size() == 0)
+            if (stack.size() == 0) {
+                writeln(TerminalColors.setColor("All streams ended, stopping program", TerminalColors.RED));
                 System.exit(-1);
+            }
             return input;
         } catch (IOException e) {
             return "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
@@ -123,30 +108,18 @@ public class BasicClientIO {
         this.write(message);
         return this.read();
     }
+
     /**
-     * the same method as {@link #read()} but it reads only one line
-     * @param message that will be written in output stream before reading data from input stream
-     * @return String read from input stream
-     */
-    public String readLine(String message) {
-        this.write(message);
-        return this.readLine();
-    }
-    /**
-     * the same method as {@link #readLine()} but if String is empty it'll return null
+     * the same method as {@link #read()} but if String is empty it'll return null
      * @return String read from input stream
      */
     public String readLineWithNull() {
-        try {
-            String line = getReader().readLine();
-            return (line.isEmpty()) ? null : line;
-        } catch (IOException e) {
-            return "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
-        }
+        String line = read();
+        return (line.isEmpty()) ? null : line;
     }
 
     /**
-     * the same method as {@link #readLine()} but if String is empty it'll return null
+     * the same method as {@link #read()} but if String is empty it'll return null
      * @param message writes this message in output stream before reading from input stream
      * @return String read from input stream
      */

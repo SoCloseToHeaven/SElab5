@@ -9,7 +9,6 @@ import exceptions.InvalidFieldValueException;
 import exceptions.UnknownCommandException;
 import util.TerminalColors;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -47,7 +46,7 @@ public class ConsoleClient {
         addBasicCommands(this.io, this.cm, this.fcm);
         io.writeln(TerminalColors.setColor("Type the name of environment variable: ", TerminalColors.GREEN));
         try {
-            String filePath = System.getenv(io.readLine(INPUT_PREFIX));
+            String filePath = System.getenv(io.read(INPUT_PREFIX));
             this.fcm = new FileCollectionManager(filePath);
             fcm.open();
         } catch (IOException |
