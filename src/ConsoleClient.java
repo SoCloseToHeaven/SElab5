@@ -44,7 +44,7 @@ public class ConsoleClient {
      * runs ConsoleClient
      */
     public void run() {
-        addBasicCommands(this.io, this.cm, this.fcm);
+        //addBasicCommands(this.io, this.cm, this.fcm);
         io.writeln(TerminalColors.setColor("Type the name of environment variable: ", TerminalColors.GREEN));
         try {
             String filePath = System.getenv(io.read(INPUT_PREFIX));
@@ -54,10 +54,8 @@ public class ConsoleClient {
                 NullPointerException e) {
             io.write(TerminalColors.setColor("%s - exiting program".formatted(e.getMessage()), TerminalColors.RED));
             System.exit(-1);
-        } catch (JsonParseException e) {
-            io.writeln(TerminalColors.setColor("%s - %s".formatted(e.getMessage(), "empty collection created")
-                    , TerminalColors.RED));
         }
+        addBasicCommands(this.io, this.cm, this.fcm);
         io.writeln(TerminalColors.setColor("Collection with these elements was loaded:",TerminalColors.BLUE));
         fcm.getCollection().forEach(element -> io.writeln(element.toString()));
         io.writeln(TerminalColors.setColor(

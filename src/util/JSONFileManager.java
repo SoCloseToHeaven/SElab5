@@ -60,8 +60,8 @@ public class JSONFileManager {
                 return false;
             });
             return dragons;
-        } catch (IOException e) {
-            System.err.printf("%s: %s%n", "Something went wrong with userIO", e.getMessage());
+        } catch (IOException | JsonParseException e) {
+            System.err.printf("%s: %s%n", e.getMessage(), "empty collection created" );
         }
         return new ArrayList<>();
     }

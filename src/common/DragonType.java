@@ -2,13 +2,13 @@ package common;
 
 
 public enum DragonType {
-    WATER,
+    WATER(1),
 
-    UNDERGROUND,
+    UNDERGROUND(2),
 
-    AIR,
+    AIR(3),
 
-    FIRE;
+    FIRE(4);
 
     /**
      * parses String to DragonType
@@ -16,9 +16,14 @@ public enum DragonType {
      * @return DragonType's value
      * @throws UnsupportedOperationException if value is invalid
      */
+    private int number;
+    DragonType(int number) {
+        this.number = number;
+    }
     public static DragonType parseDragonType(String line) {
         for (DragonType type : DragonType.values()) {
-            if (type.toString().equals(line.toUpperCase()))
+            if (type.toString().equals(line.toUpperCase()) ||
+                    (line.matches("[1-9]\\d*") && Integer.parseInt(line) == type.number))
                 return type;
         }
         throw new UnsupportedOperationException("%s - %s".formatted(line, "can't be converted to DragonType"));
