@@ -10,6 +10,7 @@ import exceptions.UnknownCommandException;
 import util.TerminalColors;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -50,12 +51,13 @@ public class ConsoleClient {
             this.fcm = new FileCollectionManager(filePath);
             fcm.open();
         } catch (IOException |
-                JsonParseException |
                 NullPointerException e) {
             io.write(TerminalColors.setColor("%s - exiting program".formatted(e.getMessage()), TerminalColors.RED));
             System.exit(-1);
+        } catch (JsonParseException e) {
+            io.writeln(TerminalColors.setColor("%s - %s".formatted(e.getMessage(), "empty collection created")
+                    , TerminalColors.RED));
         }
-        this.addBasicCommands(this.io, this.cm, this.fcm);
         io.writeln(TerminalColors.setColor("Collection with these elements was loaded:",TerminalColors.BLUE));
         fcm.getCollection().forEach(element -> io.writeln(element.toString()));
         io.writeln(TerminalColors.setColor(

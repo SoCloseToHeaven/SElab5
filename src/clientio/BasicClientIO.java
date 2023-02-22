@@ -167,6 +167,7 @@ public class BasicClientIO {
         try {
             input = stdReader.readLine();
             if (input == null) {
+                stdReader.close();
                 throw new IOException("Default stream ended, no option to continue program");
             }
             return input;
@@ -174,7 +175,7 @@ public class BasicClientIO {
             writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
             System.exit(-1);
         }
-        return  "Something went wrong with userIO";
+        return "Something went wrong with userIO";
     }
     public String stdRead(String message) {
         this.write(message);
