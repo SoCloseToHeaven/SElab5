@@ -32,7 +32,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public String inputName() {
         try {
-            String name = localIO.read("Type element's name: ");
+            String name = localIO.stdRead("Type element's name: ");
             Dragon.VALIDATOR.validateName(name);
             return name;
         } catch (InvalidFieldValueException e) {
@@ -47,7 +47,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public Integer inputX() {
         try {
-            Integer x = Integer.parseInt(localIO.readLineWithNull("Type coordinate X: "));
+            Integer x = Integer.parseInt(localIO.stdReadLineWithNull("Type coordinate X: "));
             Coordinates.VALIDATOR.validateX(x);
             return x;
         } catch (NumberFormatException|InvalidFieldValueException e) {
@@ -61,7 +61,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public double inputY() {
         try {
-            double y = Double.parseDouble(localIO.read("Type coordinate Y: "));
+            double y = Double.parseDouble(localIO.stdRead("Type coordinate Y: "));
             Coordinates.VALIDATOR.validateY(y);
             return y;
         } catch (NumberFormatException|InvalidFieldValueException e) {
@@ -75,7 +75,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public Long inputAge() {
         try {
-            String ageString = localIO.readLineWithNull("Type age: "); //age can be null
+            String ageString = localIO.stdReadLineWithNull("Type age: "); //age can be null
             Long age = (ageString == null) ? null : Long.parseLong(ageString);
             Dragon.VALIDATOR.validateAge(age);
             return age;
@@ -90,7 +90,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public String inputDescription() {
         try {
-            String description = localIO.readLineWithNull("Type description: ");//description
+            String description = localIO.stdReadLineWithNull("Type description: ");//description
             Dragon.VALIDATOR.validateDescription(description);
             return description;
         } catch (InvalidFieldValueException e) {
@@ -104,7 +104,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public Integer inputWingspan() {
         try {
-            Integer wingspan = Integer.parseInt(localIO.readLineWithNull("Type wingspan: "));//wingspan
+            Integer wingspan = Integer.parseInt(localIO.stdReadLineWithNull("Type wingspan: "));//wingspan
             Dragon.VALIDATOR.validateWingspan(wingspan);
             return wingspan;
         } catch (InvalidFieldValueException|NumberFormatException e) {
@@ -118,7 +118,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public long inputDepth() {
         try {
-            return Long.parseLong(localIO.read("Type cave's depth: "));
+            return Long.parseLong(localIO.stdRead("Type cave's depth: "));
         } catch (NumberFormatException e) {
             localIO.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
             return inputDepth();
@@ -130,7 +130,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public int inputNumberOfTreasures() {
         try {
-            int numberOfTreasures = Integer.parseInt(localIO.read("Type number of treasures: "));//CaveNumberOfTreasures
+            int numberOfTreasures = Integer.parseInt(localIO.stdRead("Type number of treasures: "));//CaveNumberOfTreasures
             DragonCave.VALIDATOR.validateNumberOfTreasures(numberOfTreasures);
             return numberOfTreasures;
         } catch (NumberFormatException|InvalidFieldValueException e) {
@@ -144,7 +144,7 @@ public abstract class CollectionElementEditorCommand extends AbstractCommand {
      */
     public DragonType inputDragonType() {
         try {
-            return DragonType.parseDragonType(localIO.read(
+            return DragonType.parseDragonType(localIO.stdRead(
                     "%s(%s): ".formatted("Type dragon's type", DragonType.stringValues())));
         } catch (UnsupportedOperationException e) {
             localIO.writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));

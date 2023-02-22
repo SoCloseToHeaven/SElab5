@@ -40,7 +40,8 @@ public class BasicCommandManager implements CommandManager{
     @Override
     public void manage(String commandString)
             throws UnknownCommandException, InvalidCommandArgumentException, InvalidFieldValueException {
-        String[] args = commandString.toLowerCase().split("\\s+");
+        String[] args = commandString.strip().split("\\s+");
+        args[0] = args[0].toLowerCase(); // case sensitivity
         if (commands.get(args[0]) == null)
             throw new UnknownCommandException("%s - %s".formatted(args[0], "Type {help} to get all usable commands."));
         commands.get(args[0]).execute(args);

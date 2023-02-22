@@ -49,6 +49,7 @@ public class BasicClientIO {
             writer.flush();
         } catch (IOException e) {
             System.err.printf("%s: %s%n", "Something went wrong with userIO", e.getMessage());
+            System.exit(-1);
         } catch (NullPointerException e) {
             this.write("null");
         }
@@ -65,6 +66,7 @@ public class BasicClientIO {
             writer.flush();
         } catch (IOException e) {
             System.err.printf("%s: %s%n", "Something went wrong with userIO", e.getMessage());
+            System.exit(-1);
         } catch (NullPointerException e) {
             this.writeln("null");
         }
@@ -95,9 +97,10 @@ public class BasicClientIO {
             }
             return input;
         } catch (IOException e) {
-            return "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
+            return  "%s: %s".formatted("Something went wrong with userIO", e.getMessage());
         }
     }
+
 
     /**
      *
@@ -135,14 +138,57 @@ public class BasicClientIO {
         stack.add(reader);
     }
 
+
     /**
      * removes last stream from {@link #stack}
      */
     public void removeAndClose() {
         try {
-            stack.removeLast().close();
+            stack.getLast().close();
+            remove();
         } catch (IOException e) {
-            System.err.printf("%s: %s%n", "Something went wrong with userIO", e.getMessage());
+            System.err.printf("%s: %s%n", "Something went wrong with userIO when closing stream", e.getMessage());
+            System.exit(-1);
         }
+    }
+
+    public BufferedReader getFirstReader() {
+        return this.stack.getFirst();
+    }
+
+    public void remove() {
+        stack.removeLast();
+    }
+
+
+    public String stdRead() {
+        BufferedReader stdReader = getFirstReader();
+        String input;
+        try {
+            input = stdReader.readLine();
+            if (input == null) {
+                throw new IOException("Default stream ended, no option to continue program");
+            }
+            return input;
+        } catch (IOException e) {
+            writeln(TerminalColors.setColor(e.getMessage(), TerminalColors.RED));
+            System.exit(-1);
+        }
+        return  "Something went wrong with userIO";
+    }
+    public String stdRead(String message) {
+        this.write(message);
+        return this.stdRead();
+    }
+
+    public String stdReadLineWithNull() {
+        String line = stdRead();
+        return (line.isEmpty()) ? null : line;
+    }
+
+
+    public String stdReadLineWithNull(String message) {
+        this.write(message);
+        return this.stdReadLineWithNull();
     }
 }
